@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="h2 my-3 d-flex justify-content-center">Movies to watch 🍿</h1>
+
+
+<%# AQUI DEFINIMOS NOSSO DATA CONTROLLER %>
+<%# agora nosso search movies controller vai conseguir pegar elementos desse form %>
+<%# assim como da nossa lista %>
+      <div data-controller="search-movies">
+      <%# ADICIONAR O FORM NA FRENTE DO { class: 'mb-4' }%>
+        <%= form_with url: movies_path, method: :get, html: { class: 
+        'mb-4', data: { search_movies_target: 'form'} } do |f| %>
+          <%= f.text_field :query,
+                          class: "form-control",
+                          placeholder: 'Type a movie title',
+                          value: params[:query],
+                          # O INPUT TAMBEM PRECISA SER UM TARGET ENTÃO VAMOS ADD AQUI
+                          data: { 
+                            search_movies_target: 'input',
+                            # QUEREMOS TB ADD UM ACTION E JA PENSAR EM UM NOME PRA 
+                            # FUNC QUE VAMOS CRIAR NO CONTROLLER
+                            action: 'keyup->search-movies#update'
+                            }
+                          %>
+                          <%# AGORA PRECISAMOS ADICIONAR UM DATA ATRIBUTE NA NOSSA LISTA %>
+                          <%# que tambem é um target? %>
+        <% end %>
+
+        <%# aqui ele renderiza um partial que é uma lista de filmes %>
+        <%# verificar _list.html.erb %>
+        <%= render 'list', movies: @movies %>
+      </div>
+    </div>
+  </div>
+</div>

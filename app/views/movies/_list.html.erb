@@ -1,0 +1,18 @@
+<%# dentro desse partial temos um codigo que vai iterar por cada filme %>
+<%# e mostrar cada cartaozinho la na pagina %>
+
+<div data-search-movies-target="list">
+  <p class="h3">
+    <% if params[:query].blank? %>
+    <%# isso aqui é um contadot mostrando o numero de resultados %>
+      <%= pluralize movies.count, 'movie' %> available
+    <% else %>
+      <%= pluralize movies.count, 'result' %> for <code><%= params[:query] %></code>
+    <% end %>
+  </p>
+  <div class="movies">
+    <% movies.each do |movie| %>
+      <%= render 'movie_infos', movie: movie %>
+    <% end %>
+  </div>
+</div>
